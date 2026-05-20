@@ -39,5 +39,3 @@ The GUI uses the same `data/tasks.json` file as the CLI so changes are reflected
 
 Notes
 - Data is persisted to `data/tasks.json` using atomic writes.
-- `data/tasks.sql` is provided as a simple schema demonstration and is not used by the CLI.
-Hi, This is JavaScript Application.
