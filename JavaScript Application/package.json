@@ -1,0 +1,17 @@
+{
+  "name": "collaborative-todo-js",
+  "version": "1.0.0",
+  "description": "Collaborative To-Do List (JavaScript) - CLI with async simulated concurrency and a lightweight GUI",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2",
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

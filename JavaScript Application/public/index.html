@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Collaborative To-Do</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">✓ Collaborative To-Do</h1>
+        <p class="subtitle">Work together, stay organized</p>
+      </header>
+      
+      <section class="card add-task-section">
+        <h2 class="section-title">Add New Task</h2>
+        <div class="form-group">
+          <input 
+            id="title" 
+            class="input-field" 
+            type="text"
+            placeholder="What needs to be done?" 
+            autocomplete="off"
+          />
+          <input 
+            id="category" 
+            class="input-field" 
+            type="text"
+            placeholder="Category (e.g., Work, Personal, Shopping)" 
+            autocomplete="off"
+          />
+          <input 
+            id="user" 
+            class="input-field" 
+            type="text"
+            placeholder="Your name" 
+            autocomplete="off"
+          />
+          <button id="add" class="button button-primary">+ Add Task</button>
+        </div>
+      </section>
+      
+      <section class="card filter-section">
+        <h2 class="section-title">Filter Tasks</h2>
+        <div class="filter-group">
+          <input 
+            id="filterUser" 
+            class="input-field" 
+            type="text"
+            placeholder="Filter by user" 
+            autocomplete="off"
+          />
+          <input 
+            id="filterCategory" 
+            class="input-field" 
+            type="text"
+            placeholder="Filter by category" 
+            autocomplete="off"
+          />
+          <button id="refresh" class="button button-secondary">🔄 Refresh</button>
+        </div>
+      </section>
+      
+      <section class="card tasks-section">
+        <h2 class="section-title">Tasks</h2>
+        <ul id="tasks" class="tasks-list"></ul>
+      </section>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
