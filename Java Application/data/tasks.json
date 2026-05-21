@@ -6,17 +6,20 @@
     "Diana",
     "Pawan",
     "John",
-    "Mikael"
+    "Mikael",
+    "Chaan",
+    "hanuman"
   ],
   "tasks": [
     {
       "id": 1,
       "title": "Design new user dashboard",
       "category": "Work",
-      "completed": false,
+      "completed": true,
       "assignedTo": "Mikael",
       "createdBy": "Alice",
-      "createdAt": "2026-05-20T08:00:00.000Z"
+      "createdAt": "2026-05-20T08:00:00.000Z",
+      "completedAt": "2026-05-21T21:59:27.480805600Z"
     },
     {
       "id": 2,
@@ -44,15 +47,6 @@
       "assignedTo": "Diana",
       "createdBy": "Diana",
       "createdAt": "2026-05-20T09:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "title": "Schedule team meeting",
-      "category": "Work",
-      "completed": false,
-      "assignedTo": "anyone",
-      "createdBy": "Bob",
-      "createdAt": "2026-05-20T11:00:00.000Z"
     },
     {
       "id": 6,
@@ -126,6 +120,78 @@
       "createdBy": "Pawan",
       "createdAt": "2026-05-20T17:40:35.035Z",
       "completedAt": "2026-05-21T21:01:32.600Z"
+    },
+    {
+      "id": 14,
+      "title": "Fix bug (by Bob)",
+      "category": "Work",
+      "completed": false,
+      "assignedTo": "Bob",
+      "createdBy": "Bob",
+      "createdAt": "2026-05-21T21:29:35.788147300Z"
+    },
+    {
+      "id": 15,
+      "title": "Prepare slides (by Bob)",
+      "category": "Work",
+      "completed": false,
+      "assignedTo": "Bob",
+      "createdBy": "Alice",
+      "createdAt": "2026-05-21T21:29:35.940567800Z"
+    },
+    {
+      "id": 16,
+      "title": "Buy milk (by Alice)",
+      "category": "Home",
+      "completed": false,
+      "assignedTo": "Alice",
+      "createdBy": "Alice",
+      "createdAt": "2026-05-21T21:45:31.049504800Z"
+    },
+    {
+      "id": 17,
+      "title": "Fix bug (by Bob)",
+      "category": "Work",
+      "completed": false,
+      "assignedTo": "Bob",
+      "createdBy": "Bob",
+      "createdAt": "2026-05-21T21:45:31.068117300Z"
+    },
+    {
+      "id": 18,
+      "title": "Prepare slides (by Bob)",
+      "category": "Work",
+      "completed": false,
+      "assignedTo": "Bob",
+      "createdBy": "Alice",
+      "createdAt": "2026-05-21T21:45:31.180531800Z"
+    },
+    {
+      "id": 19,
+      "title": "hello",
+      "category": "hi",
+      "completed": false,
+      "assignedTo": "hanuman",
+      "createdBy": "hanuman",
+      "createdAt": "2026-05-21T21:47:09.431517600Z"
+    },
+    {
+      "id": 20,
+      "title": "Buy milk (by Alice)",
+      "category": "Home",
+      "completed": false,
+      "assignedTo": "Alice",
+      "createdBy": "Alice",
+      "createdAt": "2026-05-21T21:59:27.032937300Z"
+    },
+    {
+      "id": 21,
+      "title": "Prepare slides (by Bob)",
+      "category": "Work",
+      "completed": false,
+      "assignedTo": "Bob",
+      "createdBy": "Alice",
+      "createdAt": "2026-05-21T21:59:27.174507400Z"
     }
   ]
 }

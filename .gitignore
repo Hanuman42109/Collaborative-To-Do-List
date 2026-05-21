@@ -1,0 +1,13 @@
+# Root Project Gitignore
+
+# IDE configs
+.vscode/
+.idea/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Global ignore of nested dependencies just in case
+node_modules/

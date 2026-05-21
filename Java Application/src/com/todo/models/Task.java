@@ -1,55 +1,54 @@
 package com.todo.models;
 
 public class Task {
-    private int taskId;
+    private int id;
     private String title;
-    private String description;
     private String category;
     private boolean completed;
-    private User assignedUser;
+    private User assignedTo;
+    private User createdBy;
+    private String createdAt;
+    private String completedAt;
 
-    public Task(int taskId, String title, String description,
-                String category, User assignedUser) {
-        this.taskId = taskId;
+    public Task() {}
+
+    public Task(int id, String title, String category, User assignedTo, User createdBy, String createdAt) {
+        this.id = id;
         this.title = title;
-        this.description = description;
         this.category = category;
-        this.assignedUser = assignedUser;
+        this.assignedTo = assignedTo;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
         this.completed = false;
+        this.completedAt = null;
     }
 
-    public int getTaskId() {
-        return taskId;
-    }
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public String getCategory() { return category; }
+    public boolean isCompleted() { return completed; }
+    public User getAssignedTo() { return assignedTo; }
+    public User getCreatedBy() { return createdBy; }
+    public String getCreatedAt() { return createdAt; }
+    public String getCompletedAt() { return completedAt; }
 
-    public synchronized void markCompleted() {
-        completed = true;
+    public synchronized void markCompleted(String timestamp) {
+        this.completed = true;
+        this.completedAt = timestamp;
     }
 
     public synchronized void markPending() {
-        completed = false;
+        this.completed = false;
+        this.completedAt = null;
     }
 
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public User getAssignedUser() {
-        return assignedUser;
+    public synchronized void setAssignedTo(User assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     @Override
     public String toString() {
-        return "Task ID: " + taskId +
-                "\nTitle: " + title +
-                "\nDescription: " + description +
-                "\nCategory: " + category +
-                "\nCompleted: " + completed +
-                "\nAssigned User: " + assignedUser.getUsername() +
-                "\n-----------------------------------";
+        return "Task ID: " + id + "\nTitle: " + title + "\nCategory: " + category + 
+            "\nAssigned To: " + (assignedTo != null ? assignedTo.getName() : "null") + "\nCompleted: " + completed;
     }
 }

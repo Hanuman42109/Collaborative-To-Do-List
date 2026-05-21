@@ -1,59 +1,62 @@
 # Collaborative To-Do List Application (Java)
 
 ## Overview
-This project is an interactive Java-based collaborative to-do list application. 
-It features a command-line interface (CLI) to manage tasks and users, demonstrating:
+This project is an interactive Java-based collaborative to-do list application, fully feature-compatible with its JavaScript counterpart. 
+It features a robust command-line interface (CLI) to manage tasks and a concurrent simulation engine.
 
 - Object-Oriented Programming (Classes & Packages)
-- Command-line Interactivity (`java.util.Scanner`)
-- Concurrency & Multithreading logic
-- File Handling (Saving to `.txt` files)
-- Task Management
+- Command-line argument parsing
+- Concurrency logic
+- JSON File Handling (`data/tasks.json` via Gson)
 
 ## Features
-- **Interactive Menu:** A clean terminal-based menu for a seamless user experience.
-- **Multiple users:** Dynamically create users for assignments.
-- **Task Management:** Add, remove, and view current tasks.
-- **Status Tracking:** Mark tasks as completed or pending.
-- **Task categorization:** Label tasks properly when they are created.
-- **Save State:** Save tasks persistently to a local `tasks.txt` file.
+- **Direct CLI:** Add, list, remove, or mark tasks complete instantly from your terminal.
+- **Multiple users:** Query and act as different users.
+- **JSON Compatibility:** Fully interoperable `data/tasks.json` with the JS Application.
 
 ## Project Structure
-The code follows a standard Java package-driven structure (`com.todo`):
 
 ```text
 Java Application/
 ├── src/
 │   └── com/
 │       └── todo/
-│           ├── Main.java               (Application Entry Point & CLI)
+│           ├── Main.java               (Application Entry & Interactive CLI)
+│           ├── Simulate.java           (Concurrency Demo)
 │           ├── core/
-│           │   ├── TaskManager.java    (Thread-safe Task Operations)
-│           │   └── UserThread.java     (Simulated Concurrency Threading)
+│           │   └── Datastore.java      (Thread-safe JSON Store)
 │           └── models/
-│               ├── Task.java           (Task Data Object)
-│               └── User.java           (User Data Object)
-├── tasks.txt                           (Saved persistence file)
-├── .gitignore
+│               └── Task.java           (Task Data Object)
+├── lib/
+│   └── gson-2.10.1.jar                 (JSON serialization)
+├── data/
+│   └── tasks.json                      (JSON Data persistent file)
+├── build.bat                           (Utility to compile app)
+├── run.bat                             (Utility to launch app)
 └── README.md
 ```
 
 ## How to Run
 
-1. Open your terminal (e.g., PowerShell or Command Prompt).
+1. Open your terminal or command prompt.
 2. Navigate to the `Java Application` directory.
 
 ### Compile
-Compile all Java source code into a central `bin` directory for clean execution:
+Run the simple compilation script:
 
 ```bash
-mkdir bin
-javac -d bin -sourcepath src src/com/todo/Main.java
+.\build.bat
 ```
 
 ### Run
-Launch the interactive command-line interface using the compiled `bin` folder:
+Launch the application with beautifully simple commands using the script provided:
 
 ```powershell
-java -cp bin com.todo.Main
+# Best UX: Open the interactive number menu!
+.\run.bat
+
+# Silent execution mode
+.\run.bat list
+.\run.bat add --title "Clean Room" --category "Personal" --user "Alice"
+.\run.bat complete --id 1
 ```
