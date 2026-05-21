@@ -1,24 +1,24 @@
 package com.todo.models;
 
 public class User {
-    private int id;
-    private String username;
+    private String name;
 
-    public User(int id, String username) {
-        this.id = id;
-        this.username = username;
+    public User() {}
+
+    public User(String name) {
+        this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public String getUsername() {
-        return username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "User ID: " + id + ", Username: " + username;
+        return name;
     }
 }
