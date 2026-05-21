@@ -25,7 +25,13 @@ Run
 npm start -- add --title "Buy milk" --user Alice --category Home
 npm start -- list --user Alice
 npm start -- complete --id 1
+npm start -- user-add --name Frank
+npm start -- user-list
 ```
+
+User management
+- Users must be registered before tasks can be assigned to them.
+- Tasks with no assigned user default to `anyone`.
 
 GUI
 ---

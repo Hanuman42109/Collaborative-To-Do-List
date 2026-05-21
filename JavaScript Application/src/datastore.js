@@ -27,16 +27,47 @@ async function saveData(data) {
   await fs.rename(tmp, DATA_FILE);
 }
 
-async function addTask({ title, category = 'General', assignedTo = null, createdBy = null }) {
+async function addUser(name) {
+  if (!name || typeof name !== 'string' || !name.trim()) {
+    throw new Error('User name is required');
+  }
   const data = await loadData();
+  const normalized = name.trim();
+  if (data.users.includes(normalized)) {
+    throw new Error(`User "${normalized}" is already registered`);
+  }
+  data.users.push(normalized);
+  await saveData(data);
+  return normalized;
+}
+
+async function listUsers() {
+  const data = await loadData();
+  return data.users.slice();
+}
+
+async function addTask({ title, category = 'General', assignedTo = 'anyone', createdBy = null }) {
+  const data = await loadData();
+  if (!title || typeof title !== 'string' || !title.trim()) {
+    throw new Error('Task title is required');
+  }
+  if (!assignedTo || assignedTo === '') {
+    assignedTo = 'anyone';
+  }
+  if (assignedTo !== 'anyone' && !data.users.includes(assignedTo)) {
+    throw new Error(`Assigned user "${assignedTo}" is not registered`);
+  }
+  if (createdBy && !data.users.includes(createdBy)) {
+    throw new Error(`Created-by user "${createdBy}" is not registered`);
+  }
   const id = (data.tasks.reduce((m, t) => Math.max(m, t.id || 0), 0) || 0) + 1;
   const task = {
     id,
-    title,
-    category,
+    title: title.trim(),
+    category: category ? category.trim() : 'General',
     completed: false,
     assignedTo,
-    createdBy,
+    createdBy: createdBy ? createdBy.trim() : null,
     createdAt: new Date().toISOString()
   };
   data.tasks.push(task);
@@ -67,6 +98,12 @@ async function assignTask(id, user) {
   const data = await loadData();
   const t = data.tasks.find(x => x.id === id);
   if (!t) return null;
+  if (!user || user === '') {
+    user = 'anyone';
+  }
+  if (user !== 'anyone' && !data.users.includes(user)) {
+    throw new Error(`Assigned user "${user}" is not registered`);
+  }
   t.assignedTo = user;
   await saveData(data);
   return t;
@@ -82,4 +119,4 @@ async function listTasks(filter = {}) {
   return tasks;
 }
 
-module.exports = { addTask, removeTask, completeTask, assignTask, listTasks, loadData, saveData };
+module.exports = { addTask, removeTask, completeTask, assignTask, listTasks, addUser, listUsers, loadData, saveData };

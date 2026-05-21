@@ -3,7 +3,10 @@
     "Alice",
     "Bob",
     "Charlie",
-    "Diana"
+    "Diana",
+    "Pawan",
+    "John",
+    "Mikael"
   ],
   "tasks": [
     {
@@ -11,7 +14,7 @@
       "title": "Design new user dashboard",
       "category": "Work",
       "completed": false,
-      "assignedTo": "Alice",
+      "assignedTo": "Mikael",
       "createdBy": "Alice",
       "createdAt": "2026-05-20T08:00:00.000Z"
     },
@@ -47,7 +50,7 @@
       "title": "Schedule team meeting",
       "category": "Work",
       "completed": false,
-      "assignedTo": "Alice",
+      "assignedTo": "anyone",
       "createdBy": "Bob",
       "createdAt": "2026-05-20T11:00:00.000Z"
     },

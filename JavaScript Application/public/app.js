@@ -4,7 +4,67 @@ async function api(path, opts) {
   return res.json();
 }
 
+async function loadUsers() {
+  const users = await api('/api/users');
+  const userSelect = document.getElementById('user');
+  userSelect.innerHTML = '<option value="">Anyone</option>';
+  users.forEach(u => {
+    const option = document.createElement('option');
+    option.value = u;
+    option.textContent = u;
+    userSelect.appendChild(option);
+  });
+  populateAssignOptions(users);
+  const userList = document.getElementById('userList');
+  userList.textContent = users.length ? users.join(', ') : 'No users registered yet.';
+}
+
+function populateAssignOptions(users) {
+  const assignSelect = document.getElementById('assignUser');
+  assignSelect.innerHTML = '<option value="anyone">Anyone</option>';
+  users.forEach(u => {
+    const option = document.createElement('option');
+    option.value = u;
+    option.textContent = u;
+    assignSelect.appendChild(option);
+  });
+}
+
+let activeAssignTaskId = null;
+
+function openAssignDialog(taskId, currentUser) {
+  activeAssignTaskId = taskId;
+  const dialog = document.getElementById('assignModal');
+  const title = document.getElementById('assignDialogTitle');
+  const assignSelect = document.getElementById('assignUser');
+  title.textContent = `Assign Task #${taskId}`;
+  assignSelect.value = currentUser || 'anyone';
+  dialog.classList.remove('hidden');
+}
+
+function closeAssignDialog() {
+  activeAssignTaskId = null;
+  document.getElementById('assignModal').classList.add('hidden');
+}
+
+async function saveAssignDialog() {
+  if (!activeAssignTaskId) return;
+  const user = document.getElementById('assignUser').value;
+  try {
+    await api(`/api/tasks/${activeAssignTaskId}/assign`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user })
+    });
+  } catch (err) {
+    alert(err.message || 'Could not assign task');
+  }
+  closeAssignDialog();
+  load();
+}
+
 async function load() {
+  await loadUsers();
   const user = document.getElementById('filterUser').value || undefined;
   const category = document.getElementById('filterCategory').value || undefined;
   const qs = new URLSearchParams();
@@ -61,16 +121,8 @@ async function load() {
     assignBtn.style.color = 'white';
     assignBtn.textContent = '👤 Assign';
     assignBtn.style.cursor = 'pointer';
-    assignBtn.onclick = async () => {
-      const who = prompt('Assign to user:');
-      if (who) {
-        await api(`/api/tasks/${t.id}/assign`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user: who })
-        });
-        load();
-      }
+    assignBtn.onclick = () => {
+      openAssignDialog(t.id, t.assignedTo);
     };
     
     const del = document.createElement('button');
@@ -99,13 +151,41 @@ document.getElementById('add').addEventListener('click', async () => {
   const category = document.getElementById('category').value || 'General';
   const user = document.getElementById('user').value || undefined;
   if (!title) return alert('Please enter a task title');
-  await api('/api/tasks', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, category, assignedTo: user, createdBy: user })
-  });
-  document.getElementById('title').value = '';
-  load();
+  try {
+    await api('/api/tasks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, category, assignedTo: user, createdBy: user })
+    });
+    document.getElementById('title').value = '';
+    load();
+  } catch (err) {
+    alert(err.message || 'Could not add task');
+  }
+});
+
+document.getElementById('addUser').addEventListener('click', async () => {
+  const name = document.getElementById('newUser').value;
+  if (!name) return alert('Please enter a user name');
+  try {
+    await api('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    document.getElementById('newUser').value = '';
+    load();
+  } catch (err) {
+    alert(err.message || 'Could not add user');
+  }
+});
+
+document.getElementById('assignCancel').addEventListener('click', closeAssignDialog);
+document.getElementById('assignSave').addEventListener('click', saveAssignDialog);
+document.getElementById('assignModal').addEventListener('click', (event) => {
+  if (event.target === document.getElementById('assignModal')) {
+    closeAssignDialog();
+  }
 });
 
 document.getElementById('refresh').addEventListener('click', load);

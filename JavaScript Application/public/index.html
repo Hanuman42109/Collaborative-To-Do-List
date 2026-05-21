@@ -30,14 +30,28 @@
             placeholder="Category (e.g., Work, Personal, Shopping)" 
             autocomplete="off"
           />
+          <select id="user" class="input-field">
+            <option value="">Anyone</option>
+          </select>
+          <button id="add" class="button button-primary">+ Add Task</button>
+        </div>
+      </section>
+
+      <section class="card user-section">
+        <h2 class="section-title">User Management</h2>
+        <div class="form-group">
           <input 
-            id="user" 
+            id="newUser" 
             class="input-field" 
             type="text"
-            placeholder="Your name" 
+            placeholder="New user name" 
             autocomplete="off"
           />
-          <button id="add" class="button button-primary">+ Add Task</button>
+          <button id="addUser" class="button button-secondary">+ Register User</button>
+        </div>
+        <div class="form-group">
+          <label class="section-label">Registered users:</label>
+          <div id="userList" class="user-list"></div>
         </div>
       </section>
       
@@ -67,6 +81,19 @@
         <ul id="tasks" class="tasks-list"></ul>
       </section>
     </div>
+
+    <div id="assignModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="assignDialogTitle">
+      <div class="modal-panel">
+        <h3 id="assignDialogTitle">Assign Task</h3>
+        <p>Select a user to assign this task, or choose <strong>Anyone</strong> to make it unassigned.</p>
+        <select id="assignUser" class="input-field"></select>
+        <div class="modal-actions">
+          <button id="assignCancel" class="button button-secondary">Cancel</button>
+          <button id="assignSave" class="button button-primary">Save</button>
+        </div>
+      </div>
+    </div>
+
     <script src="/app.js"></script>
   </body>
 </html>

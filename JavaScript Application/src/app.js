@@ -18,6 +18,8 @@ async function main() {
     .command('complete', 'Mark a task completed', (y) => y.option('id', { type: 'number', demandOption: true }))
     .command('remove', 'Remove a task', (y) => y.option('id', { type: 'number', demandOption: true }))
     .command('assign', 'Assign a task', (y) => y.option('id', { type: 'number', demandOption: true }).option('user', { type: 'string', demandOption: true }))
+    .command('user-add', 'Register a user', (y) => y.option('name', { type: 'string', demandOption: true }))
+    .command('user-list', 'List registered users')
     .demandCommand(1)
     .help()
     .argv;
@@ -39,6 +41,12 @@ async function main() {
   } else if (cmd === 'assign') {
     const t = await ds.assignTask(argv.id, argv.user);
     if (!t) console.error('Task not found'); else console.log('Assigned:', t);
+  } else if (cmd === 'user-add') {
+    const user = await ds.addUser(argv.name);
+    console.log('Registered user:', user);
+  } else if (cmd === 'user-list') {
+    const users = await ds.listUsers();
+    users.forEach(u => console.log('-', u));
   } else {
     console.error('Unknown command');
   }
